@@ -14,26 +14,26 @@ def Main(argv):
         argParser.add_argument("-l","--LOCATION", type=str, help="Video Location")
         argParser.parse_args()
         opts, args = getopt.getopt(argv,"u:l:")
-    except getopt.GetoptError:
-        print('youtubedownload.py [-h]')
-        sys.exit(2)       
-    for opt, arg in opts:
-        if(opt == '-u'):            
-            Download(arg)
-        elif(opt == '-l'):
-            viddir_list = os.listdir(f'{arg}\\')
-            loopContinue = True
-            while loopContinue:
-                VideoMenu()
-                choice = input(f"Which video would you like to convert to an MP3 [0 - {len(viddir_list) - 1}]: ")
-                if choice.isnumeric():
-                    if int(choice) >= 0 and int(choice) <= len(viddir_list) - 1:
-                        ConvertMP4toMP3(viddir_list[int(choice)], f'{arg}\\')
-                        loopContinue = False
+        for opt, arg in opts:
+            if(opt == '-u'):            
+                Download(arg)
+            elif(opt == '-l'):
+                viddir_list = os.listdir(f'{arg}\\')
+                loopContinue = True
+                while loopContinue:
+                    VideoMenu()
+                    choice = input(f"Which video would you like to convert to an MP3 [0 - {len(viddir_list) - 1}]: ")
+                    if choice.isnumeric():
+                        if int(choice) >= 0 and int(choice) <= len(viddir_list) - 1:
+                            ConvertMP4toMP3(viddir_list[int(choice)], f'{arg}\\')
+                            loopContinue = False
+                        else:
+                            print("Invalid Option. Try Again.")
                     else:
                         print("Invalid Option. Try Again.")
-                else:
-                    print("Invalid Option. Try Again.")
+    except getopt.GetoptError:
+        print('youtubedownload.py [-h]')
+        sys.exit(2)
 
 def Download(link):
     youTubeobj = YouTube(link)
