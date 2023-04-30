@@ -36,7 +36,7 @@ def Main(argv):
         sys.exit(2)
 
 def Download(link):
-    youTubeobj = YouTube(link)
+    youTubeobj = YouTube(link, use_oauth=True, allow_oauth_cache=True)
     youTubeobj = youTubeobj.streams.get_highest_resolution()
     try:
         youTubeobj.download(f'{os.getcwd()}\\videos\\')
