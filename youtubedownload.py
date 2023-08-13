@@ -3,12 +3,10 @@ from moviepy.editor import *
 import sys, getopt
 import argparse
 import os
-import traceback
 
 viddir_list = []
 
 def Main(argv):
-    global viddir_list
     try:
         argParser = argparse.ArgumentParser()
         argParser.add_argument("-u","--URL", type=str, help="Youtube Video URL")
@@ -25,7 +23,6 @@ def Main(argv):
                 print("Video Converted to MP3 successfully.")
     except Exception as e:
         print('An Exception occurred:', e)
-        traceback.print_exc()
         sys.exit(2)
 
 def Download(link):        
