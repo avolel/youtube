@@ -4,8 +4,6 @@ import sys, getopt
 import argparse
 import os
 
-viddir_list = []
-
 def Main(argv):
     try:
         argParser = argparse.ArgumentParser()
