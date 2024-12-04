@@ -16,21 +16,19 @@ def Main(argv):
         for opt, arg in opts:
             if(opt == '-u'):
                 print(f'Downloading {arg}.')        
-                fileName = Download(arg)
+                Download(arg)
                 print("Download Completed Successfully.")               
     except Exception as e:  
         traceback.print_exc()
         sys.exit(2)
 
 def Download(link):        
-        youTubeobj = YouTube(link, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
-        file_name = youTubeobj.streams[0].default_filename
-        #youTubeobj = youTubeobj.streams.get_highest_resolution()
-        #youTubeobj = YouTube(link)
-        #youTubeobj.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(f'{os.getcwd()}\\videos\\')
-        youTubeobj.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(f'{os.getcwd()}\\videos\\')
-        #youTubeobj.download(f'{os.getcwd()}\\videos\\')        
-        return file_name.replace(".3gpp",".mp4")
+    youTubeobj = YouTube(link, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
+    #youTubeobj = youTubeobj.streams.get_highest_resolution()
+    #youTubeobj = YouTube(link)
+    #youTubeobj.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(f'{os.getcwd()}\\videos\\')
+    youTubeobj.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(f'{os.getcwd()}\\videos\\')
+    #youTubeobj.download(f'{os.getcwd()}\\videos\\')
 
 if(__name__ == "__main__"):
     Main(sys.argv[1:])
