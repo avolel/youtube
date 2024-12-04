@@ -2,3 +2,6 @@ videos/*.mp4
 mp3/*.mp3
 archive-video/*.mp4
 archive-music/*.mp3
+*.mp4
+*.m4a
+*.mp3

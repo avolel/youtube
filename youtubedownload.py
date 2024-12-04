@@ -1,8 +1,10 @@
-from pytube import YouTube
-from moviepy.editor import *
+#from pytube import YouTube
+from pytubefix import YouTube
+from pytubefix.cli import on_progress
 import sys, getopt
 import argparse
 import os
+import traceback
 
 def Main(argv):
     try:
@@ -15,26 +17,20 @@ def Main(argv):
             if(opt == '-u'):
                 print(f'Downloading {arg}.')        
                 fileName = Download(arg)
-                print("Download Completed Successfully.")
-                print("Converting Video to MP3.")                                  
-                ConvertMP4toMP3(fileName)
-                print("Video Converted to MP3 successfully.")
-    except Exception as e:
-        print('An Exception occurred:', e)
+                print("Download Completed Successfully.")               
+    except Exception as e:  
+        traceback.print_exc()
         sys.exit(2)
 
 def Download(link):        
-        youTubeobj = YouTube(link, use_oauth=True, allow_oauth_cache=True)
+        youTubeobj = YouTube(link, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
         file_name = youTubeobj.streams[0].default_filename
-        youTubeobj = youTubeobj.streams.get_highest_resolution()
-        youTubeobj.download(f'{os.getcwd()}\\videos\\')        
+        #youTubeobj = youTubeobj.streams.get_highest_resolution()
+        #youTubeobj = YouTube(link)
+        #youTubeobj.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(f'{os.getcwd()}\\videos\\')
+        youTubeobj.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(f'{os.getcwd()}\\videos\\')
+        #youTubeobj.download(f'{os.getcwd()}\\videos\\')        
         return file_name.replace(".3gpp",".mp4")
-
-def ConvertMP4toMP3(file):    
-    mp3file = file.replace(".mp4",".mp3")
-    if(os.path.exists(f'{os.getcwd()}\\mp3\\{mp3file}') == False):
-        video = VideoFileClip(f'videos\\{file}')
-        video.audio.write_audiofile(f'{os.getcwd()}\\mp3\\{mp3file}')
 
 if(__name__ == "__main__"):
     Main(sys.argv[1:])
