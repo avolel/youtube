@@ -24,6 +24,7 @@ def Main(argv):
 
 def Download(link):        
     youTubeobj = YouTube(link, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
+    #test
     #youTubeobj = youTubeobj.streams.get_highest_resolution()
     #youTubeobj = YouTube(link)
     #youTubeobj.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(f'{os.getcwd()}\\videos\\')
